@@ -13,7 +13,7 @@ public class MenuItems {
 	        return menuItemList;
 	    }
 	  
-	    public void setEmployeeList(List<MenuItem> menuItemList) {
+	    public void setMenuItemList(List<MenuItem> menuItemList) {
 	        this.menuItemList = menuItemList;
 	       
 	        }

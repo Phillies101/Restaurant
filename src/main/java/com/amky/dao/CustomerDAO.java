@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.amky.model.Customer;
 import com.amky.model.Customers;
-
+@Repository
 public class CustomerDAO {
 	private static Customers list = new Customers();
     @Autowired
@@ -53,7 +54,7 @@ public class CustomerDAO {
     			customer.getPhone(),
     			customer.getTotalSpend()
     	};
-    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}

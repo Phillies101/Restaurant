@@ -69,4 +69,20 @@ public class EmployeeDAO
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}
+    public void updateEmployee(Employee employee) {
+    	System.out.println("Updating an emplyee.employee"+employee.getFirstName()+" "+employee.getLastName()+" "+employee.getEmail()+" "+employee.getId());
+    	String updateSql =
+    			"update emplyee.employee set firstName=?, lastName=?, email=? where id=?";
+    	Object params = new Object[] { employee.getFirstName(),
+    									employee.getLastName(),
+    									employee.getEmail(),
+    									employee.getId()
+    	};
+    	
+    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+    	
+    	int row = jdbcTemplate.update(updateSql, params, types);
+    	System.out.println(row + " row inserted.");
+    	}
     }
+    

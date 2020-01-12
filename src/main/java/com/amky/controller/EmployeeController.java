@@ -43,4 +43,19 @@ public class EmployeeController
          
         return ResponseEntity.created(location).build();
     }
+    @PostMapping(path= "/updateEmployee", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Object> updateEmployee(@RequestBody Employee employee)
+    {
+        //Integer id = employeeDao.getAllEmployees().getEmployeeList().size() + 1;
+        //	employee.setId(id);
+         
+        employeeDao.updateEmployee(employee);
+         
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                                    .path("/{id}")
+                                    .buildAndExpand(employee.getId())
+                                    .toUri();
+         
+        return ResponseEntity.created(location).build();
+    }
 }

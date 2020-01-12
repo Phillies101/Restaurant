@@ -32,7 +32,7 @@ public class RestaurantTransactionController {
 	        Integer id = restaurantTransactionDao.getAllRestaurantTransactions().getRestaurantTrasactionlist().size() + 1;
 	        restaurantTransaction.setId(id);
 	         
-	        restaurantTransactionDao.addEmployee(restaurantTransaction);
+	        restaurantTransactionDao.addRestaurantTransaction(restaurantTransaction);
 	         
 	        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 	                                    .path("/{id}")

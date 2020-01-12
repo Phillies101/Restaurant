@@ -13,7 +13,7 @@ public class Customers {
 	        return customerList;
 	    }
 	  
-	    public void setEmployeeList(List<Customer> customerList) {
+	    public void setCustomerList(List<Customer> customerList) {
 	        this.customerList = customerList;
 	       
 	        }

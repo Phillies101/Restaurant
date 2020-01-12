@@ -4,8 +4,8 @@ public class MenuItem {
 	private int id;
 	private String name;
 	private double price;
-	private boolean available;
-	public MenuItem(int id, String name, double price, boolean available) {
+	private int available;
+	public MenuItem(int id, String name, double price, int available) {
 		this.id=id;
 		this.name=name;
 		this.price=price;
@@ -29,12 +29,13 @@ public class MenuItem {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public boolean isAvailable() {
+	public int getAvailable() {
 		return available;
 	}
-	public void setAvailable(boolean available) {
+	public void setAvailable(int available) {
 		this.available = available;
 	}
+	
 
 	
 }

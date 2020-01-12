@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.amky.model.MenuItem;
 import com.amky.model.MenuItems;
-
+@Repository
 public class MenuItemDAO {
 	private static MenuItems list = new MenuItems();
     @Autowired
@@ -17,13 +18,13 @@ public class MenuItemDAO {
     public MenuItems getAllMenuItems() {
     	List menuItemListFromQuery;
     	
-    	menuItemListFromQuery = jdbcTemplate.query("select * from menuItem.menuItem",
+    	menuItemListFromQuery = jdbcTemplate.query("select * from menuitem.menuitem",
     					(rs, rowNum ) ->
     						new MenuItem(
     								rs.getInt("id"),
     								rs.getString("name"),
     								rs.getInt("price"),
-    								rs.getBoolean("available")
+    								rs.getInt("available")
     								)
     						);
     						
@@ -48,9 +49,9 @@ public class MenuItemDAO {
     	Object[] params = new Object[] {
     			menuItem.getName(),
     			menuItem.getPrice(),
-    			menuItem.isAvailable()
+    			menuItem.getAvailable()
     	};
-    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+    	int[] types = new int[] { Types.VARCHAR, Types.DOUBLE, Types.INTEGER};
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}

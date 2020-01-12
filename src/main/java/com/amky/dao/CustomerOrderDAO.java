@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.amky.model.CustomerOrder;
 import com.amky.model.CustomerOrders;
-
+@Repository
 public class CustomerOrderDAO {
 	private static CustomerOrders list = new CustomerOrders();
     @Autowired

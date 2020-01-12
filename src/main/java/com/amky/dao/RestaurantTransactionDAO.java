@@ -5,10 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.amky.model.RestaurantTransaction;
 import com.amky.model.RestaurantTransactions;
-
+@Repository
 public class RestaurantTransactionDAO {
 	private static RestaurantTransactions list = new RestaurantTransactions();
     @Autowired
@@ -17,10 +18,11 @@ public class RestaurantTransactionDAO {
     public RestaurantTransactions getAllRestaurantTransactions() {
     	List restaurantTransactionListFromQuery;
     	
-    	restaurantTransactionListFromQuery = jdbcTemplate.query("select * from restaurantTransaction.restaurantTransaction",
+    	restaurantTransactionListFromQuery = jdbcTemplate.query("select * from restauranttransaction.restauranttransaction",
     					(rs, rowNum ) ->
     						new RestaurantTransaction(
     								rs.getInt("id"),
+    				
     								rs.getString("date"),
     								rs.getInt("customer_id"),
     								rs.getDouble("moneyCollected")
@@ -37,21 +39,21 @@ public class RestaurantTransactionDAO {
     					return list;
     }
      
-    public void addEmployee(RestaurantTransaction restaurantTransaction) {
+    public void addRestaurantTransaction(RestaurantTransaction restaurantTransaction) {
         list.getRestaurantTrasactionlist().add(restaurantTransaction);
-    	System.out.println("Adding a menuItem");
+    	System.out.println("Adding a restaurantTransaction");
     	String insertSql = 
-    			"Insert Into menuItem (" +
+    			"Insert Into restaurantTransaction (" +
     			" date, "+
     			" customer_id, " +
-    			"available) " +
+    			"moneyCollected) " +
     			"VALUES (?, ?, ?)";
     	Object[] params = new Object[] {
     			restaurantTransaction.getDate(),
     			restaurantTransaction.getCustomer_id(),
     			restaurantTransaction.getMoneyCollected()
     	};
-    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+    	int[] types = new int[] { Types.VARCHAR, Types.INTEGER, Types.DOUBLE};
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}
