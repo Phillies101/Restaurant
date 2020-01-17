@@ -65,7 +65,7 @@ public class EmployeeDAO
     			employee.getLastName(),
     			employee.getEmail()
     	};
-    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}
@@ -82,7 +82,7 @@ public class EmployeeDAO
     	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
     	
     	int row = jdbcTemplate.update(updateSql, params, types);
-    	System.out.println(row + " row inserted.");
+    	System.out.println(row + " row updated  .");
     	}
     }
     
