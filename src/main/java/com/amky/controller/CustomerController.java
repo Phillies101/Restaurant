@@ -57,4 +57,12 @@ public class CustomerController {
          
         return ResponseEntity.created(location).build();
     }
+    @PostMapping(path= "/validateCredentials", consumes = "application/json", produces = "application/json")
+    public Customers validateCustomer(@RequestBody Customer customer)
+    {
+    	System.out.println("Customer Username "+customer.getUsername())
+    	return customerDao.validateCredentials(customer)
+        
+    }
+    }
 }

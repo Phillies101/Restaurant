@@ -44,8 +44,9 @@ public class CustomerDAO {
         list.getCustomerList().add(customer);
     	System.out.println("Adding a customer");
     	String insertSql = 
-    			"Insert Into customer (" +"username"+
-    			"password"+
+    			"Insert Into customer (" +
+    			"username,"+
+    			"password,"+
     			" name, "+
     			" address, " +
     			" phone, " +
@@ -59,19 +60,44 @@ public class CustomerDAO {
     			customer.getPhone(),
     			customer.getTotalSpend()
     	};
-    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
+    	int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,Types.DOUBLE };
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}
     public void updateCustomer(Customer customer) {
 		System.out.println("Updating an customer");
-		String updateSql = "update customer set username=?,password=?, name=?, address=?, phone=?, totalSpend=? where id=?,username=?,password=? ";
+		String updateSql = "update customer set username=?,password=?, name=?, address=?, phone=?, totalSpend=? where id=? ";
 		Object[] params = new Object[] { customer.getUsername(),customer.getPassword(), customer.getName(), customer.getAddress(), customer.getPhone(), customer.getTotalSpend(),
 				customer.getId() };
 
-		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER };
+		int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER,Types.DOUBLE,Types.INTEGER };
 
 		int row = jdbcTemplate.update(updateSql, params, types);
 		System.out.println(row + " row updated  .");
 	}
+
+    public Customers validateCustomers() {
+    	List customerListFromQuery;
+    	
+    	customerListFromQuery = jdbcTemplate.query("select * from customer.customer where username=",
+    					(rs, rowNum ) ->
+    						new Customer(
+    								rs.getString("username"),
+    								rs.getString("password"),
+    								rs.getInt("id"),
+    								rs.getString("name"),
+    								rs.getString("address"),
+    								rs.getInt("phone"),
+    								rs.getDouble("totalSpend")
+    								)
+    						);
+    						
+    					list.setCustomerList(null);
+    					for(int i=0;i<customerListFromQuery.size();i++) {
+    						list.getCustomerList().add((Customer)customerListFromQuery.get(i));
+    						System.out.println(customerListFromQuery.get(i).toString());
+    						
+    					}
+    					return list;
+    }
 }
