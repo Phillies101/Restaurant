@@ -20,6 +20,7 @@ public class CustomerController {
     private CustomerDAO customerDao;
      
     @GetMapping(path="/customers", produces = "application/json")
+    
     public Customers getCustomers()
     {
         return customerDao.getAllCustomers();
@@ -32,6 +33,22 @@ public class CustomerController {
         customer.setId(id);
          
         customerDao.addCustomer(customer);
+         
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                                    .path("/{id}")
+                                    .buildAndExpand(customer.getId())
+                                    .toUri();
+         
+        return ResponseEntity.created(location).build();
+    }
+    @PostMapping(path= "/updateCustomer", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer)
+    {
+    	
+    	System.out.println("EMP ID:"+customer.getId());
+         
+    	
+        customerDao.updateCustomer(customer);
          
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                                     .path("/{id}")

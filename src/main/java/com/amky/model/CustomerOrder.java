@@ -6,11 +6,11 @@ public class CustomerOrder {
 	private int orderNumber;
 	private String order;
 	private int totalOrdercost;
-	private boolean paid;
+	private int paid;
 public CustomerOrder() {
 	
 }
-public CustomerOrder(int id,int customer_id,int orderNumber,String order, int totalOrdercost,boolean paid) {
+public CustomerOrder(int id,int customer_id,int orderNumber,String order, int totalOrdercost,int paid) {
 	this.id=id;
 	this.customer_id=customer_id;
 	this.orderNumber=orderNumber;
@@ -52,10 +52,10 @@ public int getTotalOrdercost() {
 public void setTotalOrdercost(int totalOrdercost) {
 	this.totalOrdercost = totalOrdercost;
 }
-public boolean isPaid() {
+public int getPaid() {
 	return paid;
 }
-public void setPaid(boolean paid) {
+public void setPaid(int paid) {
 	this.paid = paid;
 }
 }

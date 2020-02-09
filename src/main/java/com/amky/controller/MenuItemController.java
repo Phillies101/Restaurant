@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.amky.dao.MenuItemDAO;
+import com.amky.model.Customer;
 import com.amky.model.MenuItem;
 import com.amky.model.MenuItems;
 
@@ -33,6 +34,22 @@ public class MenuItemController {
 	        menuItem.setId(id);
 	         
 	        menuItemDao.addMenuItem(menuItem);
+	         
+	        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+	                                    .path("/{id}")
+	                                    .buildAndExpand(menuItem.getId())
+	                                    .toUri();
+	         
+	        return ResponseEntity.created(location).build();
+	    }
+	    @PostMapping(path= "/updateMenuItem", consumes = "application/json", produces = "application/json")
+	    public ResponseEntity<Object> updateMenuItem(@RequestBody MenuItem menuItem)
+	    {
+	    	
+	    	System.out.println("EMP ID:"+menuItem.getId());
+	         
+	    	
+	        menuItemDao.updateMenuItem(menuItem);
 	         
 	        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 	                                    .path("/{id}")

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.amky.model.MenuItem;
 import com.amky.model.RestaurantTransaction;
 import com.amky.model.RestaurantTransactions;
 @Repository
@@ -57,4 +58,15 @@ public class RestaurantTransactionDAO {
     	int row = jdbcTemplate.update(insertSql, params, types);
     	System.out.println(row + " row inserted.");
     	}
+    public void updateRestaurantTransaction(RestaurantTransaction restaurantTransaction) {
+		System.out.println("Updating a transaction");
+		String updateSql = "update restaurantTransaction set date=?, customer_id=?, moneyCollected=? where id=?";
+		Object[] params = new Object[] { restaurantTransaction.getDate(), restaurantTransaction.getCustomer_id(), restaurantTransaction.getMoneyCollected(),
+				restaurantTransaction.getId() };
+
+		int[] types = new int[] { Types.VARCHAR, Types.INTEGER, Types.DOUBLE,Types.INTEGER };
+
+		int row = jdbcTemplate.update(updateSql, params, types);
+		System.out.println(row + " row updated  .");
+	}
 }

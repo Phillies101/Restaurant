@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.amky.dao.RestaurantTransactionDAO;
+import com.amky.model.Customer;
 import com.amky.model.RestaurantTransaction;
 import com.amky.model.RestaurantTransactions;
 
@@ -33,6 +34,22 @@ public class RestaurantTransactionController {
 	        restaurantTransaction.setId(id);
 	         
 	        restaurantTransactionDao.addRestaurantTransaction(restaurantTransaction);
+	         
+	        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+	                                    .path("/{id}")
+	                                    .buildAndExpand(restaurantTransaction.getId())
+	                                    .toUri();
+	         
+	        return ResponseEntity.created(location).build();
+	    }
+	    @PostMapping(path= "/updateRestaurantTransaction", consumes = "application/json", produces = "application/json")
+	    public ResponseEntity<Object> updateRestaurantTransaction(@RequestBody RestaurantTransaction restaurantTransaction)
+	    {
+	    	
+	    	System.out.println("EMP ID:"+restaurantTransaction.getId());
+	         
+	    	
+	    	restaurantTransactionDao.updateRestaurantTransaction(restaurantTransaction);
 	         
 	        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 	                                    .path("/{id}")
